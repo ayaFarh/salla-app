@@ -8,6 +8,9 @@ import { useLocation } from 'react-router-dom';
 export default function ProductDetails() {
     const { state } = useLocation();
     const product = state.product;
+    console.log(product);
+
+    
   
 
     const imageitems = product?.images.map((imageurl) => ({
@@ -33,7 +36,7 @@ export default function ProductDetails() {
                 <div className='flex flex-col items-start justify-center space-y-1 col-span-12 md:col-span-6 xl:col-span-8 2xl:col-span-8'>
                     <h1 className='font-semibold text-2xl'>{product.title}</h1>
                     <h2 className='text-gray-400 font-bold'>{product.category.name}</h2>
-                    <p>Brand: {product.brand.name}</p>
+                   
                     <p>{product.description}</p>
                     <div className='flex justify-between gap-6 items-center mt-2'>
                         <span>{product.price} L.E</span>

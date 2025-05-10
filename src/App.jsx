@@ -19,6 +19,8 @@ import Cart from './Pages/Cart/Cart'
 import Wishlist from './Pages/Wishlist/Wishlist'
 import Orders from './Pages/Orders/Orders'
 import Signup from './Auth/Signeup/Signup'
+import ScrollToTop from './ScrolTop'
+
 
 function App() {
   const route = createBrowserRouter([
@@ -45,7 +47,9 @@ function App() {
     <>
     <Provider store={store} >
       <Toaster/>
-      <RouterProvider router={route}></RouterProvider>
+      
+    
+      <RouterProvider router={route} />
       </Provider>
 
     </>
