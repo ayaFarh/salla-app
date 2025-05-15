@@ -19,7 +19,8 @@ import Cart from './Pages/Cart/Cart'
 import Wishlist from './Pages/Wishlist/Wishlist'
 import Orders from './Pages/Orders/Orders'
 import Signup from './Auth/Signeup/Signup'
-import ScrollToTop from './ScrolTop'
+import Category from './Pages/Category/Category'
+
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         {path:"cart",element:<Cart/>},
         {path:"wishlist",element:<Wishlist/>},
         {path:"allOrders",element:<Orders/>},
+        {path:`category/:catName/:catId`,element:<Category/>},
         {path: "*",element:<Notfound/>}
       ]},
       {path:'/Auth/login',element:<Login/>},

@@ -49,7 +49,10 @@ const orderSlice= createSlice({
             state.error = action.payload;
         })
         .addCase(GetUserOrders.fulfilled, (state, action) => {
+            state.loading = false;
             state.orders = action.payload;
+            state.error = false;
+            
         })
 
     }

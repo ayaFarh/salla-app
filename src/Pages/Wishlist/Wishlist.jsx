@@ -13,7 +13,7 @@ export default function Wishlist() {
 
     }, [dispatch]);
   return (
-    <div className='container'>
+    <div className=''>
    {loading ?(<LoadingCar/>)
    : wishlist && wishlist?.length > 0  ?(<WishlistItems/>):(<EmptySec/>)}
 

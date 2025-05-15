@@ -26,6 +26,10 @@ export const API ={
     // payment
     onlinePayMent:`${BASE_URL}/orders/checkout-session`,
     cashPayMent:`${BASE_URL}/orders`,
+
+    // subcategory
+    getAllSubcategory:`${BASE_URL}/subcategories`,
+    spacialSubcategoryToCat:`${BASE_URL}/categories/{id}/subcategories`
     
 
 } 

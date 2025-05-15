@@ -34,7 +34,7 @@ export default function Products() {
   };
   
   return (
-    <div className='space-y-4 container'>
+    <div className='space-y-4'>
     
     <div className=' flex  flex-col md:flex-row justify-between gap-2'>
       <h2 className='text-2xl font-bold'>Our products</h2>

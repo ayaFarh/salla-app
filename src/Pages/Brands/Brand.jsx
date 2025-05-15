@@ -28,7 +28,7 @@ export default function Brand() {
   }
 
   return (
-    <div className='container'>
+    <div className=''>
       <h2 className='my-2 text-xl font-bold'>Shop popular Brand</h2>
       {loading ?(<div className="">
        <Skeleton height={200}  className='w-full'/>

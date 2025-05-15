@@ -7,6 +7,7 @@ import cartReducer from "./slices/cartSlice"
 import wishlistReducer from "./slices/wishlistSlice"
 import orderReducer from "./slices/orders"
 import shippingAdreesReducer from "./slices/shippingAdrees"
+import subcategory from "./slices/subcategorySlice"
 
 
 export const store =configureStore({
@@ -18,6 +19,7 @@ export const store =configureStore({
     cart:cartReducer,
     wishlist:wishlistReducer,
     orders:orderReducer,
-    shipingAdrees:shippingAdreesReducer
+    shipingAdrees:shippingAdreesReducer,
+    subcategory
    }
 })

@@ -9,12 +9,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../Redux/slices/auth';
 import Cookies from 'js-cookie';
 import { handelGetUserCart } from '../../Redux/slices/cartSlice';
+import CategoryDropDowen from '../../Pages/Category/CategoryDropDowen';
 
 
 export default function Navbar() {
  const [isVisable , setIsVisable] = useState(true)
  const {isAuthenticated} = useSelector(state => state.auth)
  const {CountOfCart} = useSelector(state => state.cart)
+const [categoryDrop,setCategoryDrop] = useState(false)
  const dispatch = useDispatch()
 
  const navDetails = [
@@ -27,15 +29,15 @@ export default function Navbar() {
     path:'products'
   },
   {
-    name:'Categorys',
-    path:'categorys'
+    name:'Categories',
+    path:'#'
   },
   {
     name:'Orders',
     path:'allOrders'
   }
  ]
- 
+  
 
  const toggleVisable = () => {
   setIsVisable(!isVisable)
@@ -48,8 +50,8 @@ export default function Navbar() {
 
   return<>
 
-<nav className='bg-slate-100 fixed z-50 right-0 left-0 '>
-<div className='block  md:flex md:gap-2 xl-flex 2xl:flex justify-between items-center py-4 container'>
+<nav className='bg-slate-100 fixed z-50 right-0 left-0' >
+<div className='block  md:flex md:gap-2 xl-flex 2xl:flex justify-between items-center py-4 containerA'>
 <div className='flex items-center justify-between '>
 <div className=' mr-2 xl:mr-8  text-2xl font-bold relative' >
     <Link to='/'  className='flex items-center gap-1'>
@@ -65,13 +67,33 @@ export default function Navbar() {
 <ul className='block md:flex gap-4 space-y-4 md:space-y-0 '>
    
    {navDetails.map((nav) => (
-    <li className=''>
-        <NavLink className={({isActive})=>{
-          return `
-          ${isActive ? 'font-bold' :""}`
-        }} to={nav.path} >{nav.name}</NavLink>
-    </li>
-   ))}
+  <li key={nav.name}>
+    {nav.name === "Categories" ? (
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          setCategoryDrop(prev => !prev);
+        }}
+        className={`${
+          categoryDrop ? 'font-bold ' : ''
+        } cursor-pointer`}
+      >
+        {nav.name}
+      </button>
+    ) : (
+      <NavLink
+        className={({ isActive }) =>
+          `${isActive ?   'font-bold' : ''}`
+        }
+        to={nav.path}
+      >
+        {nav.name}
+      </NavLink>
+    )}
+  </li>
+))}
+
+   
     
 </ul>
 <div className='flex justify-start items-center  gap-4 '>
@@ -103,11 +125,11 @@ export default function Navbar() {
 
 </div>
 
-  </div>
+  </div> 
 
 </div>
 </nav>
-
+  {categoryDrop && <CategoryDropDowen/>}
   
   </>
 }

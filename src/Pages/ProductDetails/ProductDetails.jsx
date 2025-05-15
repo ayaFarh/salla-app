@@ -3,22 +3,25 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { LiaStarSolid } from 'react-icons/lia';
 import ReactImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { handelAddToCart } from '../../Redux/slices/cartSlice';
+import { BASE_URL } from '../../Api/Api';
 
 export default function ProductDetails() {
     const { state } = useLocation();
-    const product = state.product;
+    const product = state?.product;
     console.log(product);
+    const dispatch =useDispatch()
 
-    
-  
-
-    const imageitems = product?.images.map((imageurl) => ({
-        original: imageurl,
-        thumbnail: imageurl,
-        originalClass: 'custom-image',
-        
-    }));
+   const imageitems = product?.images.map((imageurl) => {
+  const imageSrc = imageurl.startsWith('http') ? imageurl : `${BASE_URL}${imageurl}`;
+  return {
+    original: imageSrc,
+    thumbnail: imageSrc,
+    originalClass: 'custom-image',
+  };
+});
 
     return (
         <div className='container'>
@@ -45,7 +48,7 @@ export default function ProductDetails() {
                             <span>{product.ratingsAverage}</span>
                         </p>
                     </div>
-                    <div className='btn-primary w-full mt-3 p-1 flex items-center justify-center gap-1 text-white'>
+                    <div className='btn-primary w-full mt-3 p-1 flex items-center justify-center gap-1 text-white' onClick={()=>{dispatch(handelAddToCart(product._id))}}>
                         <AiOutlineShoppingCart className="inline-block" />
                         <span>Add To Cart</span>
                     </div>

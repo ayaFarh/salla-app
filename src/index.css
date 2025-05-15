@@ -6,6 +6,11 @@
     margin-inline: auto;
 }
 
+.containerA{
+	width: 95%;
+	margin-inline: auto;
+}
+
 .btn-primary{
     @apply bg-blue-500 px-4 py-2 rounded text-white cursor-pointer
 }

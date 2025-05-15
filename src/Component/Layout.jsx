@@ -9,7 +9,7 @@ export default function Layout() {
    <>
    <ScrollToTop/>
    <Navbar/>
-  <div className='py-20 min-h-screen'>
+  <div className='containerA py-20 min-h-screen'>
   <Outlet/>
   </div>
    <Footer/>

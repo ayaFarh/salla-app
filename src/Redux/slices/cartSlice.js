@@ -9,7 +9,6 @@ export const handelGetUserCart = createAsyncThunk(
     async (_, thunkAPI) => {
         const token = Cookies.get('token');
         if (!token) {
-            showtoast('error', 'You must be logged in to add items to the cart');
             return thunkAPI.rejectWithValue({ message: 'Not authenticated' });
         }
 
@@ -155,7 +154,6 @@ export const handelUpdateCart = createAsyncThunk(
         }
     }
 );
-
 
 
 
