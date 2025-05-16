@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import WishlistItems from './WishlistItems';
 import EmptySec from './EmptySec';
 import { GetUserWishlist } from '../../Redux/slices/wishlistSlice';
-import LoadingCar from '../../Component/LoadingCar';
+import LoadingAnimation from '../../Component/LoadingAnimation';
 
 export default function Wishlist() {
     const {loading, wishlist} = useSelector((state) => state.wishlist);
@@ -15,7 +15,7 @@ export default function Wishlist() {
     }, [dispatch]);
   return (
     <div className=''>
-   {loading ?(<LoadingCar/>)
+   {loading ?(<LoadingAnimation/>)
    : wishlist && wishlist?.length > 0  ?(<WishlistItems/>):(wishlist?.length === 0 && <EmptySec/>)}
 
     </div>

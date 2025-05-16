@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import OrdersItems from './component/OrdersItems'
 import EmptySec from './component/EmptySec'
-import LoadingCar from '../../Component/LoadingCar'
 import { jwtDecode } from 'jwt-decode'
 import { GetUserOrders } from '../../Redux/slices/orders'
 import Cookies from 'js-cookie'
 import { Link } from 'react-router-dom'
+import LoadingAnimation from '../../Component/LoadingAnimation'
 
 export default function Orders() {
   const {orders,loading}=useSelector((state)=>state.orders)
@@ -26,7 +26,7 @@ export default function Orders() {
   return (
     <div className='container space-y-4'>
      {loading ? (
-  <LoadingCar />
+  <LoadingAnimation />
 ) : orders  && orders.length > 0 ? (
   <OrdersItems />
 ):

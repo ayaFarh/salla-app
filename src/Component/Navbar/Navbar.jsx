@@ -11,15 +11,20 @@ import { handelGetUserCart } from '../../Redux/slices/cartSlice';
 import CategoryDropDowen from '../../Pages/Category/CategoryDropDowen';
 import { GetUserWishlist } from '../../Redux/slices/wishlistSlice';
 import Loader from '../Loader';
+import { getAllcategory } from '../../Redux/slices/categorySlice';
+import Skeleton from 'react-loading-skeleton';
 
 
 export default function Navbar() {
  const [isVisable , setIsVisable] = useState(false)
  const {isAuthenticated} = useSelector(state => state.auth)
- const {CountOfCart,loading:cartLoading} = useSelector(state => state.cart)
+ const {CountOfCart,loadingnnnnn:loadingCart} = useSelector(state => state.cart)
  const {wishlistCount,loading:wishlistLoading}=useSelector(state => state.wishlist)
 const[categoryDrop,setCategoryDrop]=useState(false)
-
+const[categoryPhone,setCategoryPhone]=useState(false)
+const { loading: loadingCategory, categories, error } = useSelector(
+    (state) => state.categories
+  );
 
 const menueRef =useRef()
 const dispatch = useDispatch()
@@ -85,21 +90,35 @@ const toggleRef = useRef();
   setIsVisable(!isVisable)
  }
 
- useEffect(()=>{
+ useEffect(() => {
+  const mediaQuery = window.matchMedia('(min-width: 768px)');
+
+  const handleMediaChange = (e) => {
+    if (e.matches) {
+      setCategoryPhone(false);
+    }
+  };
+
+  mediaQuery.addEventListener('change', handleMediaChange);
+
+  return () => {
+    mediaQuery.removeEventListener('change', handleMediaChange);
+  };
+}, []);
+
+useEffect(() => {
   dispatch(handelGetUserCart())
-
- },[dispatch])
-
-
- useEffect(()=>{
   dispatch(GetUserWishlist())
- },[dispatch])
+  dispatch(getAllcategory())
+}, [dispatch])
 
  const handelCloseMenu =()=>{
   if(window.innerWidth < 768 ){
     setIsVisable(false)
   }
  }
+
+ 
 
   return<>
 
@@ -139,25 +158,42 @@ const toggleRef = useRef();
 >
   <div className='flex md:flex-row  flex-col justify-between items-start gap-6' >
 <ul 
-  onClick={()=>{handelCloseMenu()
-    
-  }}
+ 
 className='block md:flex gap-4 space-y-4 md:space-y-0 '>
    
    {navDetails.map((nav) => (
-  <li key={nav.name}>
+  <li key={nav.name}
+  onClick={()=>{
+    if(nav.name !== "Categories"){
+      handelCloseMenu()
+    }
+  }}
+  >
     {nav.name === "Categories" ? (
-      <button
+      <div
         onClick={(e) => {
           e.preventDefault();
-          setCategoryDrop(prev => !prev);
+          if(window.innerWidth > 767){
+            setCategoryDrop(prev => !prev);
+          }else if(window.innerWidth < 767){
+            setCategoryPhone(prev => !prev)
+          }
         }}
         className={`${
           categoryDrop ? 'font-bold ' : ''
-        } cursor-pointer`}
+        } cursor-pointer `}
       >
-        {nav.name}
-      </button>
+        <div className='space-y-3'>
+         <span> {nav.name}</span>
+        <div >{categoryPhone && <ul className='font-semibold space-y-2' onClick={()=>{handelCloseMenu()}}>
+         {loadingCategory ? <Skeleton height={200} className='w-full' /> :categories.data && categories.data.map((cat) => (
+           <li key={cat._id} className='flex items-start '>
+             <Link to={`/category/${cat.name}/${cat._id}`}>{cat.name}</Link>
+           </li>
+         ))}
+          </ul>}</div>
+        </div>
+      </div>
     ) : (
       <NavLink
         className={({ isActive }) =>
@@ -180,7 +216,7 @@ className='block md:flex gap-4 space-y-4 md:space-y-0 '>
   <Link to="cart" className='text-2xl relative ' >
 <AiOutlineShoppingCart />
     <span className='bg-gray-400 text-white absolute top-0 right-0 w-5 h-5 flex items-center justify-center rounded-full text-xs translate-x-1/2 -translate-y-1/2 font-bold '>
-  {isAuthenticated ? (cartLoading ? <Loader/> : CountOfCart) : 0}
+  {isAuthenticated ? (loadingCart ? <Loader/> : CountOfCart) : 0}
     </span>
 </Link>
 <Link to="wishlist" className='text-xl relative '>
