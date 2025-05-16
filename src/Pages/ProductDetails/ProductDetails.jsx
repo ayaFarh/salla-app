@@ -11,7 +11,7 @@ import { BASE_URL } from '../../Api/Api';
 export default function ProductDetails() {
     const { state } = useLocation();
     const product = state?.product;
-    console.log(product);
+   
     const dispatch =useDispatch()
 
    const imageitems = product?.images.map((imageurl) => {

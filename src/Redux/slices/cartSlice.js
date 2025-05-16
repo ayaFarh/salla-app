@@ -8,9 +8,7 @@ export const handelGetUserCart = createAsyncThunk(
     'cart/handelGetUserCart',
     async (_, thunkAPI) => {
         const token = Cookies.get('token');
-        if (!token) {
-            return thunkAPI.rejectWithValue({ message: 'Not authenticated' });
-        }
+      
 
         try {
             let options = {
@@ -21,11 +19,11 @@ export const handelGetUserCart = createAsyncThunk(
                 }
             }
             const { data } = await axios.request(options);
-            console.log(data);
+           
             
             return data;
         } catch (err) {
-            showtoast('error', err.response?.data?.message || 'Something went wrong');
+            
             return thunkAPI.rejectWithValue(err.response?.data);
         }
     }
@@ -36,8 +34,8 @@ export const handelAddToCart = createAsyncThunk(
     'cart/handelAddToCart',
     async (id, thunkAPI) => {
         const token = Cookies.get('token');
-        if (!token) {
-            showtoast('error', 'You must be logged in to add items to the cart');
+        if(!token){
+            showtoast('error', 'please login first');
             return thunkAPI.rejectWithValue({ message: 'Not authenticated' });
         }
 
@@ -58,7 +56,7 @@ export const handelAddToCart = createAsyncThunk(
             
             return data;
         } catch (err) {
-            showtoast('error', err.response?.data?.message || 'Something went wrong');
+            
             return thunkAPI.rejectWithValue(err.response?.data);
         }
     }
@@ -68,10 +66,7 @@ export const handelAllDeletCart = createAsyncThunk(
     'cart/handelAllDeletCart',
     async (id, thunkAPI) => {
         const token = Cookies.get('token');
-        if (!token) {
-            showtoast('error', 'You must be logged in to add items to the cart');
-            return thunkAPI.rejectWithValue({ message: 'Not authenticated' });
-        }
+       
         try {
             let options = {
                 url: API.Cart,
@@ -83,11 +78,11 @@ export const handelAllDeletCart = createAsyncThunk(
             }
             const { data } = await axios.request(options);
             showtoast('success', 'All products deleted from cart successfully');
-            console.log(data);
+           
             
             return data;
         } catch (err) {
-            showtoast('error', err.response?.data?.message || 'Something went wrong');
+           
             return thunkAPI.rejectWithValue(err.response?.data);
         }
     }
@@ -97,11 +92,7 @@ export const deleteSpacialProductCart = createAsyncThunk(
     'cart/deleteSpacialProductCart',
     async (id, thunkAPI) => {
         const token = Cookies.get('token');
-        if (!token) {
-            showtoast('error', 'You must be logged in to add items to the cart');
-            return thunkAPI.rejectWithValue({ message: 'Not authenticated' });
-        }
-
+   
         try {
             let options = {
                 url: `${API.Cart}/${id}`,
@@ -112,11 +103,12 @@ export const deleteSpacialProductCart = createAsyncThunk(
             }
             const { data } = await axios.request(options);
             showtoast('success', 'Product deleted from cart successfully');
-            console.log(data);
+
+           
             
             return data;
         } catch (err) {
-            showtoast('error', err.response?.data?.message || 'Something went wrong');
+           
             return thunkAPI.rejectWithValue(err.response?.data);
         }
     }
@@ -128,7 +120,7 @@ export const handelUpdateCart = createAsyncThunk(
     async ({id, count, thunkAPI}) => {
         const token = Cookies.get('token');
         if (!token) {
-            showtoast('error', 'You must be logged in to add items to the cart');
+           
             return thunkAPI.rejectWithValue({ message: 'Not authenticated' });
         }
 
@@ -144,12 +136,11 @@ export const handelUpdateCart = createAsyncThunk(
                 }
             }
             const { data } = await axios.request(options);
-            showtoast('success', 'cart updated successfully');
             console.log(data);
             
             return data;
         } catch (err) {
-            showtoast('error', err.response?.data?.message || 'Something went wrong');
+           
             return thunkAPI.rejectWithValue(err.response?.data);
         }
     }
@@ -161,7 +152,7 @@ const cartSlice= createSlice({
     name:"cart",
     initialState:{
         cart:[],
-        CountOfCart: Cookies.get('cartCount') ? parseInt(Cookies.get('cartCount')) : 0,
+        CountOfCart: 0,
         loading:false,
        error:false
     },
@@ -175,6 +166,7 @@ const cartSlice= createSlice({
         })
         .addCase(handelGetUserCart.fulfilled,(state,action)=>{
             state.cart= action.payload
+            state.CountOfCart= action.payload.numOfCartItems
             state.loading =false
             state.error= false
         })
@@ -182,38 +174,49 @@ const cartSlice= createSlice({
             state.error = action.payload
         })
         .addCase(handelAddToCart.pending,(state)=>{
-            state.loading =true
+            state.loading =false
         })
         .addCase(handelAddToCart.fulfilled,(state,action)=>{
             state.cart= action.payload  
-            Cookies.set('cartCount', action.payload.numOfCartItems)
+            state.CountOfCart= action.payload.numOfCartItems
             state.loading =false
             state.error= false
         })
         .addCase(handelAddToCart.rejected,(state,action)=>{
             state.error = action.payload
+             
+            
         })
         .addCase(handelAllDeletCart.pending,(state)=>{
-            state.loading =true
+            state.loading =false
+            state.CountOfCart = 0
+           
         })
         .addCase(handelAllDeletCart.fulfilled,(state,action)=>{
             state.cart = action.payload
+             state.CountOfCart = 0
             state.loading =false
             state.error= false
         })
         .addCase(handelAllDeletCart.rejected,(state,action)=>{
             state.error = action.payload
+            state.CountOfCart = state.cart.numOfCartItems 
+            
         })
         .addCase(deleteSpacialProductCart.pending,(state)=>{
             state.loading =false
+            state.CountOfCart = state.cart.numOfCartItems -1
+           
         })
         .addCase(deleteSpacialProductCart.fulfilled,(state,action)=>{
             state.cart= action.payload
+            state.CountOfCart= action.payload.numOfCartItems
             state.loading =false
             state.error= false
         })
         .addCase(deleteSpacialProductCart.rejected,(state,action)=>{
             state.error = action.payload
+            state.CountOfCart = state.cart.numOfCartItems + 1
         })
         .addCase(handelUpdateCart.pending,(state)=>{
             state.loading =false

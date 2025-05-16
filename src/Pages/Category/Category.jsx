@@ -7,11 +7,11 @@ import { handelSpacialSubcategoryToCat } from '../../Redux/slices/subcategorySli
 export default function Category() {
   const { catId, catName } = useParams();
   const dispatch = useDispatch();
-  const { subcategoriesByCatId,products } = useSelector((state) => state.subcategory);
+  const { subcategoriesByCatId } = useSelector((state) => state.subcategory);
   const subcategories = subcategoriesByCatId[catId] || [];
 
 
-  console.log(products);
+ 
   
   useEffect(() => {
     dispatch(getspacialCategory({id: catId}));

@@ -2,11 +2,13 @@ import React from 'react'
 import {  useSelector } from 'react-redux'
 import Cookies from 'js-cookie'
 import Skeleton from 'react-loading-skeleton'
+import { Img } from "react-image"
+import EmptySec from './EmptySec'
 
 
 export default function OrdersItems() {
     const{orders}=useSelector((state)=>state.orders)
-    console.log(orders);
+  
     
     
   return (
@@ -17,14 +19,14 @@ export default function OrdersItems() {
           <p className=''>Tottal Price : <span className='text-slate-500'>{order.totalOrderPrice} LE</span></p>
           <div className='flex gap-2 max-[557px]:my-4'>
            <div className='text-white'>{order.isPaid ? <span className='bg-green-200 py-2 px-6'>Paid</span> : <span className='bg-red-300 py-2 px-6 rounded-full'>Not Paid</span>}</div>
-          <div className='text-white'>{order.isDelivered ? <span className='bg-green-200 py-2 px-6'>Delivered</span> : <span className='bg-blue-500 py-2 px-6 text-white p-2 rounded-full'>in progress</span>}</div>
+          <div className='text-white'>{order.isDelivered ? <span className='bg-green-200 py-2 px-6'>Delivered</span> : <span className='bg-blue-500 py-2 px-6 text-white p-2 rounded-full'>In progress</span>}</div>
           </div>   
       </div>
       <p>Order ID : {order._id}</p>
        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-4 '>
         {order.cartItems.map((item) => (
        <div className='p-2 rounded border border-gray-200'>
-        <img src={item.product.imageCover} alt={item.product.title} className='' loader={<Skeleton className='w-24 h-24 bg-slate-500'/>}/>
+        <Img src={item.product.imageCover} alt={item.product.title} className='' loader={<Skeleton className='w-24 h-100 bg-slate-500'/>}/>
           <h2 className='text-slate-500 line-clamp-1'>{item.product.title}</h2>
           <p>{item.price} L.E</p>
        </div>
@@ -33,7 +35,7 @@ export default function OrdersItems() {
       </div>
         </div>
 
-      )):""}
+      )): orders.length === 0 ? <EmptySec /> : <LoadingCar /> }
     </div>
   )
 }

@@ -13,7 +13,7 @@ export const getAllProducts = createAsyncThunk(
         });
         return data;
       } catch (err) {
-        return thunkAPI.rejectWithValue(err.response?.data || "Network Error");
+        return thunkAPI.rejectWithValue(err.response?.data );
       }
     }
   );

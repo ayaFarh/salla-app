@@ -12,7 +12,7 @@ import { Img } from 'react-image';
 export default function Brand() {
   const dispatch = useDispatch();
   const { loading, brands, error } = useSelector(state => state.brands);
- console.log(brands);
+
  
    
   useEffect(() => {
@@ -34,7 +34,6 @@ export default function Brand() {
        <Skeleton height={200}  className='w-full'/>
       </div>):(<Swiper
         style={{ height: '100%' }}
-        loop={true}
         slidesPerView={4}
         spaceBetween={5}
         className='cursor-pointer'

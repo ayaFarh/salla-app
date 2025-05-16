@@ -6,27 +6,35 @@ import LoadingCar from '../../Component/LoadingCar'
 import { jwtDecode } from 'jwt-decode'
 import { GetUserOrders } from '../../Redux/slices/orders'
 import Cookies from 'js-cookie'
+import { Link } from 'react-router-dom'
 
 export default function Orders() {
   const {orders,loading}=useSelector((state)=>state.orders)
    
      console.log(orders);
   const dispatch =useDispatch()
+   const token = Cookies.get('token');
  useEffect(()=>{
-      const token = Cookies.get('token');
-     const { id } = jwtDecode(token)
-      dispatch(GetUserOrders(id))
+     
+    if(token){
+        const {id}=jwtDecode(token)
+        dispatch(GetUserOrders(id))
+    }
 
-    },[dispatch])
+    },[dispatch,token])
    
   return (
     <div className='container space-y-4'>
      {loading ? (
   <LoadingCar />
-) : orders && orders.length > 0 ? (
+) : orders  && orders.length > 0 ? (
   <OrdersItems />
-) : (
-  <EmptySec />
+):
+token && Orders.length === 0 ?  <EmptySec /> : (
+  <div className='flex flex-col space-y-4 items-center justify-center min-h-[300px]'>
+         <p> please log in first and make order </p>
+         <Link to={'/login'} className='btn-primary'>log in</Link>
+        </div>
 )}
 
     </div>

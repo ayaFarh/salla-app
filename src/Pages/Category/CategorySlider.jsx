@@ -31,8 +31,7 @@ export default function CategorySlider() {
            <Skeleton height={200}  className='w-full'/>
           </div>):(<Swiper
             style={{ height: '100%' }}
-            loop={true}
-            slidesPerView={4}
+            slidesPerView={2}
             spaceBetween={2}
             className='cursor-pointer'
             breakpoints={{

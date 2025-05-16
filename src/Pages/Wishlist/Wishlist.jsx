@@ -8,14 +8,15 @@ import LoadingCar from '../../Component/LoadingCar';
 export default function Wishlist() {
     const {loading, wishlist} = useSelector((state) => state.wishlist);
     const dispatch = useDispatch()
+   
+    
     useEffect(() => {
        dispatch(GetUserWishlist())
-
     }, [dispatch]);
   return (
     <div className=''>
    {loading ?(<LoadingCar/>)
-   : wishlist && wishlist?.length > 0  ?(<WishlistItems/>):(<EmptySec/>)}
+   : wishlist && wishlist?.length > 0  ?(<WishlistItems/>):(wishlist?.length === 0 && <EmptySec/>)}
 
     </div>
   )

@@ -11,7 +11,7 @@ export const GetUserWishlist= createAsyncThunk(
     async (_, thunkAPI) => {
         const token = Cookies.get('token');
         if (!token) {
-            showtoast('error', 'You must be logged in to add items to the cart');
+           
             return thunkAPI.rejectWithValue({ message: 'Not authenticated' });
         }
 
@@ -24,11 +24,11 @@ export const GetUserWishlist= createAsyncThunk(
                 }
             }
             const { data } = await axios.request(options);
-            console.log(data.data);
+           
             
             return data.data;
         } catch (err) {
-            showtoast('error', err.response?.data?.message || 'Something went wrong');
+           
             return thunkAPI.rejectWithValue(err.response?.data);
         }
     }
@@ -40,7 +40,7 @@ export const AddToWishlist = createAsyncThunk(
     async (id, thunkAPI) => {
         const token = Cookies.get('token');
         if (!token) {
-            showtoast('error', 'You must be logged in to add items to the cart');
+             showtoast('error', 'please login first');
             return thunkAPI.rejectWithValue({ message: 'Not authenticated' });
         }
 
@@ -57,8 +57,7 @@ export const AddToWishlist = createAsyncThunk(
             }
             const { data } = await axios.request(options);
             showtoast('success', 'Product added to wishlist successfully');
-            console.log(data.data);
-            
+          
             return data.data;
         } catch (err) {
             showtoast('error', err.response?.data?.message || 'Something went wrong');
@@ -74,7 +73,7 @@ export const deleteFromWishlist = createAsyncThunk(
     async (id, thunkAPI) => {
         const token = Cookies.get('token');
         if (!token) {
-            showtoast('error', 'You must be logged in to add items to the cart');
+          
             return thunkAPI.rejectWithValue({ message: 'Not authenticated' });
         }
 
@@ -87,8 +86,6 @@ export const deleteFromWishlist = createAsyncThunk(
                 },
             }
             const { data } = await axios.request(options);
-            showtoast('success', 'Product deleted from wishlist successfully');
-            console.log(data);
             
             return data;
         } catch (err) {
@@ -104,7 +101,7 @@ const wishlistSlice = createSlice({
     name:"wishlist",
     initialState:{
         wishlist:[],
-        wishlistCount:Cookies.get('wishlistCount') ? JSON.parse(Cookies.get('wishlistCount')) : 0,
+           wishlistCount:  0, 
         loading:false,
         error:false
     },
@@ -114,9 +111,8 @@ const wishlistSlice = createSlice({
             state.loading =true
         })
         .addCase(GetUserWishlist.fulfilled,(state,action)=>{
-            state.wishlist= action.payload
+            state.wishlist = action.payload
             state.wishlistCount= state.wishlist.length
-            Cookies.set('wishlistCount', state.wishlist.length)
             state.loading =false
             state.error= false
         })
@@ -124,30 +120,33 @@ const wishlistSlice = createSlice({
             state.error = action.payload
         })
         .addCase(AddToWishlist.pending,(state)=>{
-            state.loading =true
+            state.loading =false
+
         })
         .addCase(AddToWishlist.fulfilled,(state,action)=>{
             state.wishlist= action.payload
             state.wishlistCount= state.wishlist.length
-            Cookies.set('wishlistCount', JSON.stringify(state.wishlistCount))
             state.loading =false
             state.error= false
         })
         .addCase(AddToWishlist.rejected,(state,action)=>{
             state.error = action.payload
+             
         })
         .addCase(deleteFromWishlist.pending,(state)=>{
             state.loading =false
+            state.wishlistCount= state.wishlist.length - 1
+           
         })
         .addCase(deleteFromWishlist.fulfilled,(state,action)=>{
             state.wishlist = state.wishlist.filter(item => item.id !== action.meta.arg)
             state.wishlistCount= state.wishlist.length
-            Cookies.set('wishlistCount', JSON.stringify(state.wishlistCount))
             state.loading =false
             state.error= false
         })
         .addCase(deleteFromWishlist.rejected,(state,action)=>{
             state.error = action.payload
+            state.wishlistCount = state.wishlist + 1
         })
     }
 })

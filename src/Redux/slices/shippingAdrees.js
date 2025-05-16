@@ -27,7 +27,7 @@ export const creatOnlinePayment = createAsyncThunk(
                 
                 return data.data;
         } catch (err) {
-            return thunkAPI.rejectWithValue(err.response?.data || "Network Error");
+            return thunkAPI.rejectWithValue(err.response?.data );
         }
 
     }
@@ -57,7 +57,7 @@ export const cashPayment = createAsyncThunk(
                 
                 return data.data;
         } catch (err) {
-            return thunkAPI.rejectWithValue(err.response?.data || "Network Error");
+            return thunkAPI.rejectWithValue(err.response?.data );
         }
 
     }

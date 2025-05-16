@@ -23,7 +23,7 @@ export default function ProductCert({product}) {
     imageCover,  
   }= product
   return ( 
-    <div className='rounded overflow-hidden shadow  transition-all duration-300 border border-gray-200'>
+    <div className='rounded overflow-hidden shadow  transition-all duration-300 border border-gray-200' >
      <div className='relative group'>
      <Img src={imageCover} alt={title} className='w-full h-full object-contain' loader={<Skeleton height={300} />}/>
      <div className='absolute top-0 left-0 bottom-0 opacity-0 hover:opacity-100 transition-all duration-300 space-x-2 flex items-center bg-black/25 justify-center w-full h-full '>

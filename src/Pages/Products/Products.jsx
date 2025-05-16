@@ -9,7 +9,7 @@ export default function Products() {
     const {loading, products ,error } = useSelector(state => state.product);
     const [searchTerm, setSearchTerm] = useState('');
    const dispatch =useDispatch()
-   console.log(products);
+  
     
    useEffect(()=>{
     dispatch(getAllProducts({page:2}));
@@ -44,7 +44,7 @@ export default function Products() {
      <button className='bg-slate-400 text-white py-2 px-4  absolute top-0 right-0' onClick={handleSearch}>Search</button>
     </div>
     </div>
-    <div className=' grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6'>
+    <div className=' grid grid-cols-1 max-[767px]:grid-cols-2  max-[500px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6'>
    {error? (
           <div className="col-span-full  min-h-screen flex items-center justify-center text-center text-gray-500 text-xl font-semibold">
                Network error
@@ -52,6 +52,7 @@ export default function Products() {
    :loading ?Array.from({ length: 12}).map((_, i) => <ProductSkelton key={i} />) :
    ((products.data && products.data.length > 0) && products.data.map((prod) => (
     <ProductCart 
+        key={prod._id}
         product={prod}
        />
       ))

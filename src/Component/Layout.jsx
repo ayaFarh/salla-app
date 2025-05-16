@@ -8,7 +8,7 @@ export default function Layout() {
   return (
    <>
    <ScrollToTop/>
-   <Navbar/>
+   <Navbar    categoryDrop={false} setCategoryDrop={false}/>  
   <div className='containerA py-20 min-h-screen'>
   <Outlet/>
   </div>

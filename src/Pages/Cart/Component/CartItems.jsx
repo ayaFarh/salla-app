@@ -9,7 +9,6 @@ import {deleteSpacialProductCart, handelAllDeletCart, handelUpdateCart } from '.
 export default function CartItems() {
     const cart = useSelector((state) => state.cart.cart);
     const cartProduct = cart?.data?.products
-    console.log(cartProduct);
     const dispatch =useDispatch()
     
     const deleteAllCart = () => {
@@ -18,6 +17,7 @@ export default function CartItems() {
 
     const deleteProduct = (id) => {
         dispatch(deleteSpacialProductCart(id))
+
     }
 
 

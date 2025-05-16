@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { showtoast } from "../../uitiliets/ShowToast";
 import { API } from "../../Api/Api";
 import axios from "axios";
 import Cookies from 'js-cookie';
@@ -9,7 +8,7 @@ export const GetUserOrders= createAsyncThunk(
     async (id, thunkAPI) => {
         const token = Cookies.get('token');
         if (!token) {
-            showtoast('error', 'You must be logged in to add items to the cart');
+           
             return thunkAPI.rejectWithValue({ message: 'Not authenticated' });
         }
 
@@ -26,7 +25,7 @@ export const GetUserOrders= createAsyncThunk(
             
             return data;
         } catch (err) {
-            showtoast('error', err.response?.data?.message || 'Something went wrong');
+            
             return thunkAPI.rejectWithValue(err.response?.data);
         }
     }
