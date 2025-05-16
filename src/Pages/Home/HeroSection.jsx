@@ -4,6 +4,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Autoplay } from 'swiper/modules';
+import { Img } from 'react-image';
+import Loader from '../../Component/Loader';
+import LoadingAnimation from '../../Component/LoadingAnimation';
 
 export default function HeroSection() {
   return (
@@ -17,13 +20,13 @@ export default function HeroSection() {
           modules={[Autoplay]}
         >
           <SwiperSlide>
-            <img className='w-full h-full object-cover' src="/banar5.jpg" alt='' />
+            <Img className='w-full h-full object-cover' src="/banar5.jpg" alt='' loader={<LoadingAnimation/>} />
           </SwiperSlide>
           <SwiperSlide>
             <img className='w-full h-full object-cover' src="/front-view-woman-posing-with-monochrome-outfit.jpg" alt='' />
           </SwiperSlide>
-          <SwiperSlide>
-            <img className='w-full h-full object-cover' src="/ketchen (2).jpg" alt='' />
+          <SwiperSlide> 
+            <Img className='w-full h-full object-cover' src="/ketchen (2).jpg" alt=''  loader={<LoadingAnimation />}/>
           </SwiperSlide>
         </Swiper>
       </div>

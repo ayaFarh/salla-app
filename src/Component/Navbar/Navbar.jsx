@@ -22,7 +22,7 @@ export default function Navbar() {
  const {wishlistCount,loading:wishlistLoading}=useSelector(state => state.wishlist)
 const[categoryDrop,setCategoryDrop]=useState(false)
 const[categoryPhone,setCategoryPhone]=useState(false)
-const { loading: loadingCategory, categories, error } = useSelector(
+const { loading: loadingCategory, categories} = useSelector(
     (state) => state.categories
   );
 
