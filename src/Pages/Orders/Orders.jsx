@@ -7,11 +7,10 @@ import { GetUserOrders } from '../../Redux/slices/orders'
 import Cookies from 'js-cookie'
 import { Link } from 'react-router-dom'
 import LoadingAnimation from '../../Component/LoadingAnimation'
+import UnUthSection from '../../Component/UnUthSection'
 
 export default function Orders() {
   const {orders,loading}=useSelector((state)=>state.orders)
-   
-     console.log(orders);
   const dispatch =useDispatch()
    const token = Cookies.get('token');
  useEffect(()=>{
@@ -31,10 +30,7 @@ export default function Orders() {
   <OrdersItems />
 ):
 token && Orders.length === 0 ?  <EmptySec /> : (
-  <div className='flex flex-col space-y-4 items-center justify-center min-h-[300px]'>
-         <p> please log in first and make order </p>
-         <Link to={'/login'} className='btn-primary'>log in</Link>
-        </div>
+    <UnUthSection/>
 )}
 
     </div>

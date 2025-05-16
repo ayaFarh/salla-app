@@ -175,6 +175,8 @@ const cartSlice= createSlice({
         })
         .addCase(handelGetUserCart.rejected,(state,action)=>{
             state.error = action.payload
+            state.loadingCart = false
+            state.loading =false
         })
         .addCase(handelAddToCart.pending,(state)=>{
             state.loading =false

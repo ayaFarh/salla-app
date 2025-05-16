@@ -10,9 +10,6 @@ export default function Category() {
   const dispatch = useDispatch();
   const { subcategoriesByCatId, loading } = useSelector((state) => state.subcategory);
   const subcategories = subcategoriesByCatId[catId] || [];
-
-
- 
   
   useEffect(() => {
     dispatch(getspacialCategory({id: catId}));

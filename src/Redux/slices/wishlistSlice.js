@@ -118,6 +118,7 @@ const wishlistSlice = createSlice({
         })
         .addCase(GetUserWishlist.rejected,(state,action)=>{
             state.error = action.payload
+            state.loading =false
         })
         .addCase(AddToWishlist.pending,(state)=>{
             state.loading =false
