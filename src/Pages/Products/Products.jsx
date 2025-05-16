@@ -12,7 +12,7 @@ export default function Products() {
   
     
    useEffect(()=>{
-    dispatch(getAllProducts({page:2}));
+    dispatch(getAllProducts({page:1}));
    },[dispatch])
    
    const handleNextPage = () => {

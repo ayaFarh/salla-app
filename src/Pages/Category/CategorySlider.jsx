@@ -59,7 +59,7 @@ export default function CategorySlider() {
                 </SwiperSlide>
               ))
             ) : (
-              <div className="text-center py-10 text-gray-400">No brands found</div>
+              <div className="text-center py-10 text-gray-400">No category found</div>
             )}
           </Swiper>)}
         </div>
