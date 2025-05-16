@@ -37,7 +37,8 @@ export default function CartItems() {
 
 
         <div className='flex items-center gap-2'>
-            <span className='p-2 border border-blue-400 rounded flex items-center cursor-pointer' onClick={()=>{dispatch(handelUpdateCart({id:item.product._id,count:item.count+1}))}}><FaPlus /></span>
+            <span className='p-2 border border-blue-400 rounded flex items-center cursor-pointer' onClick={()=>{dispatch(handelUpdateCart({id:item.product._id,count:item.count+1}))
+        }}><FaPlus /></span>
             <p>{item.count}</p>
             <span  className='p-2 border border-blue-400 rounded flex items-center cursor-pointer' onClick={()=>{dispatch(handelUpdateCart({id:item.product._id,count:item.count-1}))}}><FaMinus />
             </span>

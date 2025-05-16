@@ -1,12 +1,17 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import CartItems from './Component/CartItems';
 import LoadingCar from '../../Component/LoadingCar';
 import ImptySec from './Component/ImptySec';
 import ShippingAdrees from '../ShappingAdrees/ShippingAdrees';
+import { handelGetUserCart } from '../../Redux/slices/cartSlice';
 
 export default function Cart() {
     const {loading ,cart} = useSelector((state) => state.cart);
+    const dispatch =useDispatch()
+    useEffect(()=>{
+      dispatch(handelGetUserCart())
+    },[dispatch])
   return (
     <div className='container space-y-4'>
     <div className='bg-slate-100 py-4 rounded space-y-4'>
