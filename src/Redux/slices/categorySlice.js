@@ -29,6 +29,7 @@ const categorySlice =createSlice({
     name:"category",
     initialState:{
         categories:[],
+        categoryDropPhone:[],
         loading:false,
        error:false
     },
@@ -39,6 +40,7 @@ const categorySlice =createSlice({
         })
         .addCase(getAllcategory.fulfilled,(state,action)=>{
             state.categories= action.payload
+            state.categoryDropPhone= action.payload
             state.loading =false
             state.error= false
         })
