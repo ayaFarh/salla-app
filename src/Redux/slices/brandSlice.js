@@ -8,6 +8,7 @@ export const getAllBrands= createAsyncThunk('brand/getAllBrands',
     async(_, { rejectWithValue }) => {
         try {
             const { data } = await axios.get(API.getAllBrands)
+            
             return data
         } catch (err) {
             return rejectWithValue(err.response.data)

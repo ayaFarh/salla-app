@@ -102,10 +102,6 @@ export const deleteSpacialProductCart = createAsyncThunk(
                 },
             }
             const { data } = await axios.request(options);
-            showtoast('success', 'Product deleted from cart successfully');
-
-           
-            
             return data;
         } catch (err) {
            
@@ -180,6 +176,7 @@ const cartSlice= createSlice({
         })
         .addCase(handelAddToCart.pending,(state)=>{
             state.loading =false
+            state.CountOfCart = state.cart.numOfCartItems +1
         })
         .addCase(handelAddToCart.fulfilled,(state,action)=>{
             state.cart= action.payload  
@@ -189,6 +186,7 @@ const cartSlice= createSlice({
         })
         .addCase(handelAddToCart.rejected,(state,action)=>{
             state.error = action.payload
+            state.CountOfCart = state.cart.numOfCartItems - 1
              
             
         })
@@ -222,6 +220,7 @@ const cartSlice= createSlice({
         .addCase(deleteSpacialProductCart.rejected,(state,action)=>{
             state.error = action.payload
             state.CountOfCart = state.cart.numOfCartItems + 1
+            showtoast('error', "failed to delete product from cart");
         })
         .addCase(handelUpdateCart.pending,(state)=>{
             state.loading =false

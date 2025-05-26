@@ -89,7 +89,6 @@ export const deleteFromWishlist = createAsyncThunk(
             
             return data;
         } catch (err) {
-            showtoast('error', err.response?.data?.message || 'Something went wrong');
             return thunkAPI.rejectWithValue(err.response?.data);
         }
     }
@@ -122,6 +121,7 @@ const wishlistSlice = createSlice({
         })
         .addCase(AddToWishlist.pending,(state)=>{
             state.loading =false
+            state.wishlistCount= state.wishlist.length + 1
 
         })
         .addCase(AddToWishlist.fulfilled,(state,action)=>{
@@ -132,22 +132,24 @@ const wishlistSlice = createSlice({
         })
         .addCase(AddToWishlist.rejected,(state,action)=>{
             state.error = action.payload
-             
+            state.wishlistCount = state.wishlist.length - 1
         })
         .addCase(deleteFromWishlist.pending,(state)=>{
             state.loading =false
             state.wishlistCount= state.wishlist.length - 1
+          
            
         })
         .addCase(deleteFromWishlist.fulfilled,(state,action)=>{
-            state.wishlist = state.wishlist.filter(item => item.id !== action.meta.arg)
-            state.wishlistCount= state.wishlist.length
+            state.wishlist = state.wishlist.filter(item => item._id !== action.meta.arg)
             state.loading =false
             state.error= false
         })
         .addCase(deleteFromWishlist.rejected,(state,action)=>{
             state.error = action.payload
             state.wishlistCount = state.wishlist + 1
+            showtoast('error', "failed to delete from wishlist");
+            
         })
     }
 })

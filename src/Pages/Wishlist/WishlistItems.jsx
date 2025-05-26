@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,18 @@ export default function WishlistItems() {
     const {wishlist} = useSelector((state) => state.wishlist);
     const navigate = useNavigate();
     const dispatch = useDispatch()
+    const [wishProducts, setWishProducts] = useState(wishlist)
+    const handelDelet = (product) => {
+  const savedProduct = product;
+  setWishProducts((prev) => prev.filter((item) => item._id !== savedProduct._id));
+  dispatch(deleteFromWishlist(savedProduct._id))
+    .unwrap()
+    .catch(() => {
+      setWishProducts((prev) => [...prev, savedProduct]);
+    });
+};
+
+    
     
   return (
     <div className='space-y-4 '>
@@ -22,7 +34,7 @@ export default function WishlistItems() {
     
     <div className='grid grid-cols-1 max-[767px]:grid-cols-2  max-[500px]:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4'>
      
-        {wishlist.length > 0 ? wishlist.map((item) => (
+        {wishProducts.length > 0 ? wishProducts.map((item) => (
             <div className='rounded overflow-hidden shadow  transition-all duration-300 border border-gray-200' key={item._id}>
                <div className='relative group'>
                <Img src={item.imageCover} alt={item.title} className='w-full h-full object-contain' loader={<Skeleton height={350} />}/>
@@ -35,7 +47,7 @@ export default function WishlistItems() {
 
              className='text-2xl bg-slate-300 cursor-pointer rounded-full text-center p-2 flex items-center hover:scale-105 transition-all duration-300'><IoEyeSharp /></span>
                  <span onClick={()=>dispatch(handelAddToCart(item._id))} className='text-2xl bg-slate-300 cursor-pointer rounded-full text-center p-2 flex items-center hover:scale-105 transition-all duration-300'><AiOutlineShoppingCart /></span>
-                 <span onClick={()=>dispatch(deleteFromWishlist(item._id))}
+                 <span onClick={()=> handelDelet(item)}
                        className='text-2xl text-red-600 bg-slate-300 cursor-pointer rounded-full text-center p-2 flex items-center hover:scale-105 transition-all duration-300'  ><MdDelete /></span>
                </div>
                </div>

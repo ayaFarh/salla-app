@@ -6,10 +6,8 @@ import { FaBars, FaRegHeart } from "react-icons/fa";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../Redux/slices/auth';
-import { handelGetUserCart } from '../../Redux/slices/cartSlice';
 import { GetUserWishlist } from '../../Redux/slices/wishlistSlice';
 import Loader from '../Loader';
-import { getAllcategory } from '../../Redux/slices/categorySlice';
 import CategoryDropDowen from '../../Pages/Category/CategoryDropDowen';
 import PhoneMenu from './PhoneMenu';
 

@@ -1,11 +1,9 @@
 import './App.css'
-// import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './Pages/Home/Home'
 import Layout from './Component/Layout'
 import Notfound from './Pages/Notfound'
 import Login from './Auth/Login/Login'
-
 import { Provider } from 'react-redux'
 import { store } from './Redux/store'
 import { Toaster } from 'react-hot-toast'
@@ -20,10 +18,12 @@ import Wishlist from './Pages/Wishlist/Wishlist'
 import Orders from './Pages/Orders/Orders'
 import Signup from './Auth/Signeup/Signup'
 import Category from './Pages/Category/Category'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
 
 function App() {
+  const queryClient = new QueryClient();
   const route = createBrowserRouter([
     {path: "/",
       element: <Layout/>,
@@ -49,9 +49,9 @@ function App() {
     <>
     <Provider store={store} >
       <Toaster/>
-      
-    
-      <RouterProvider router={route} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={route} />
+      </QueryClientProvider>
       </Provider>
 
     </>

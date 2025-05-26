@@ -6,6 +6,7 @@ import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
 
 
+
 export default function CategoryDropDowen({setCategoryDrop}) {
   const { loading, categories, error } = useSelector(
     (state) => state.categories
@@ -13,6 +14,10 @@ export default function CategoryDropDowen({setCategoryDrop}) {
   const{DropDowensubcategoriesByCatId}=useSelector((state)=>state.subcategory)
   const dispatch = useDispatch();
   const categoryRef = useRef()
+
+  
+  
+  
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -35,7 +40,7 @@ useEffect(() => {
       dispatch(handelSpacialSubcategoryToCat({ id: cat._id,isDropdown: true, limit: 3 }));
     });
   }
-}, [dispatch, categories.data]);
+}, [dispatch,categories.data]);
 
 
 if(error){
@@ -92,8 +97,6 @@ if(error){
   ))}
     </div>
 )}
-
-    
     </>
   );
 }
