@@ -150,7 +150,6 @@ const cartSlice= createSlice({
         cart:[],
         CountOfCart: 0,
         loading:false,
-        
        error:false
     },
     reducers:{
@@ -160,7 +159,7 @@ const cartSlice= createSlice({
         builder
         .addCase(handelGetUserCart.pending,(state)=>{
             state.loading =true
-            state.CountOfCart = false
+            state.CountOfCart = true
         })
         .addCase(handelGetUserCart.fulfilled,(state,action)=>{
             state.cart= action.payload

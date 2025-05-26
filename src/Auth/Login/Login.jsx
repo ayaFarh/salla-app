@@ -37,13 +37,13 @@ export default function Login() {
           alt=""
           className="w-full h-full object-cover object-[center_10%]"
         />
-        <div className="flex items-center absolute top-8 left-10 max-[280px]:left-6">
+        <div className="flex items-center absolute top-8 left-10 max-[280px]:left-6 max-[766px]:text-white">
           <img
             src="/cart.png"
             alt="logo"
             className="w-8 h-8 max-[280px]:w-6 max-[280px]:h-6"
           />
-          <h1 className="text-2xl max-[280px]:text-lg font-semibold">
+          <h1 className="text-2xl max-[280px]:text-lg font-semibold ">
             Salla style
           </h1>
         </div>
@@ -71,7 +71,7 @@ export default function Login() {
               </div>
 
               {/* Email Field */}
-              <div className="flex flex-col w-full space-y-1">
+              <div className="flex flex-col w-full space-y-1 ">
                 <InputeForm
                   labelName="Email Address"
                   name="email"
@@ -86,7 +86,7 @@ export default function Login() {
 
               {/* Password Field */}
               <div className="flex flex-col w-full space-y-1">
-                <div className="relative">
+                <div className="relative max-[766px]:text-white">
                   <PasswordForm
                     labelName="Password"
                     name="password"

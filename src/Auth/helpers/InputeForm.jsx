@@ -13,7 +13,7 @@ const InputeForm=({
 })=>{
    return(
   <div className="w-full">
-    <label htmlFor={name} >{labelName}</label>
+    <label htmlFor={name} className="max-[766px]:text-white">{labelName}</label>
     {istextarea?
     <div>
         <textarea

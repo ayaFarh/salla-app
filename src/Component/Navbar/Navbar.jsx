@@ -13,7 +13,7 @@ import PhoneMenu from './PhoneMenu';
 
 export default function Navbar() {
   const { isAuthenticated } = useSelector(state => state.auth);
-  const { CountOfCart, loadingnnnnn: loadingCart } = useSelector(state => state.cart);
+  const { CountOfCart, loading: loadingCart } = useSelector(state => state.cart);
   const { wishlistCount, loading: wishlistLoading } = useSelector(state => state.wishlist);
 
   const [categoryDrop, setCategoryDrop] = useState(false);

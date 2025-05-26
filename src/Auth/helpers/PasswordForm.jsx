@@ -18,7 +18,7 @@ const PasswordForm = ({
     return (
       <div>
         <>
-            <label htmlFor={name} >{labelName}</label>
+            <label htmlFor={name} className="max-[766px]:text-white">{labelName}</label>
           <div className="relative">
           <input 
             className={` focus:ring-0 focus:border-black max-[766px]:text-white w-full  rounded-lg border-2 bg-transparent border-black py-2 px-2 ${
